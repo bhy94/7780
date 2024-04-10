@@ -1,0 +1,22 @@
+shop-er-generate-20240325.png 從數據庫生成的ERD
+ERD-v1.odg ERD-v1.png 依照筆記規範
+ERD-v2.odg ERD-v2.png 添加了many to many的條件描述（建議用這個）
+
+odg檔 用LibreOffice Draw繪畫的（開源軟件）
+
+
+下面是對v2 ERD的描述
+
+Each user may have 0 or many orders
+Eash order must belonged to a user
+
+Each order can have many products 
+Each product can be included in many orders
+
+Each product can be labelled with 0 or up to 3 tags
+Each tag can be label to many products
+
+Each vendor can provide 0 or many products
+Each product must be provided by at least 1 vendor
+
+Not captured in this ER diagram: 3 tables for permission control
