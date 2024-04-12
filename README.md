@@ -9,6 +9,10 @@ An implementation of a basic E-shop with its management panel, where you can exp
 - Default User/pass: `alice`/`alice123`
 - Default Vendor/pass: `test`/`test123`
 
+![](https://github.com/bhy94/7780/blob/main/misc/QQ20240413074243.png?raw=true)
+
+![](https://github.com/bhy94/7780/blob/main/misc/QQ20240413043444.png?raw=true)
+
 ## Group Member
 - 23462264 Yiming Hong (Scrum Master)
 - 23439327 Haolin Liu (Vise Scrum Master)

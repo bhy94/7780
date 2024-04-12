@@ -1,7 +1,5 @@
 ## API Design
 
-#### [中文文档](https://github.com/GoodManWEN/GOUP25-7640/blob/main/docs/api_design.md)
-
 ##### 1. User Login
 
 - URL：`/api/login`
