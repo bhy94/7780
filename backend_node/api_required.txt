@@ -1,0 +1,11 @@
+/api/users/info
+/api/users/deposit
+/api/register
+/api/users/orders
+/api/orders/delete
+/api/payments/pay
+/api/orders/recieve
+/api/login
+/api/users/orders/create
+/api/products
+/api/logout
