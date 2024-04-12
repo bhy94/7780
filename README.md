@@ -1,96 +1,64 @@
-# GROUP25-7640
+# GROUP29-7780-Group-Assignment-2
 
-An implementation of a basic multi-user mall and its management panel, both front-end and back-end, along with the description of its database rational design. Uses `Python` & `Typescript` technology.
+An implementation of a basic E-shop with its management panel, where you can explore products and pay for them with paypal(sandbox) if you like.
 
 #### Github Source:
-[https://github.com/GoodManWEN/GOUP25-7640](https://github.com/GoodManWEN/GOUP25-7640)
-
-#### Documentation in Chinese:
-
-[中文文档](https://github.com/GoodManWEN/GOUP25-7640/blob/main/docs/README_zh.md)
+[https://github.com/GoodManWEN/GOUP25-7640](https://github.com/bhy94/7780)
 
 ## Group Member
-- 23462426 F.Q Wen (Report & Documentation & Developer)
-- 23455543 Cheung Chun Shing (Backend Developer)
-- 23450274 Liu Bo (Backend Developer)
-- 23418990 ZHOU Guangyu (Frontend User Mall Developer)
-- 23430389 CHEN Dexi (Frontend Admin Panel Developer)
+- 23462264 Yiming Hong (Scrum Master)
+- 23439327 Haolin Liu (Vise Scrum Master)
+- 23462426 Fuquan Wen (Developer & Tester)
+- 23458836 Hongyi Bian (Developer)
 
 
 ## Online DEMO
-[https://comp7640.wendemoapi.site](https://comp7640.wendemoapi.site)
-- **Mall**: `comp7640.wendemoapi.site/`
-- **Admin Panel**: `comp7640.wendemoapi.site/panel/login/`
+[https://7780.wendemoapi.site/](https://7780.wendemoapi.site/)
+- **E-shop**: `7780.wendemoapi.site/`
+- **Admin Panel**: `7780.wendemoapi.site/panel/login/`
 - Default User/pass: `alice`/`alice123`
-- Default Vendor/pass: `xiaomi`/`xiaomi123`
-- Default Supervisor: `admin`/`admin`
+- Default Vendor/pass: `test`/`test123`
 
+## Main Functional Implemented
+
+- User Registration
+- User Login and Logout
+- Landing Page & Team Information (About Us)
+- Product Display Page
+- Add products to cart
+- Placing Orders
+- Paying for orders (notification of payment failure if balance is insufficient)
+- Adding funds via PayPal
+- Add products through the admin panel
+- View all PayPal recharge records in the admin panel
 
 ## ER-Diagram
-![](https://github.com/GoodManWEN/GOUP25-7640/blob/main/misc/ERD-v2.png?raw=true)
-
-#### Description of ER-Diagram
-- Each **user** may have 0 or many **orders**
-- Each **order** must belonged to a **user**
-
-- Each **order** can have many **products** 
-- Each **product** can be included in many **orders**
-
-- Each **product** can be labelled with 0 or up to 3 tags
-- Each **tag** can be label to many **products**
-
-- Each **vendor** can provide 0 or many **products**
-- Each **product** must be provided by at least 1 vendor
-
-- Not captured in this ER diagram: 3 tables for permission control
-
-## Main Functional Achievement
-
-- Front end allows user registration
-- The back end allows administrators to add merchants
-- Merchants can add products
-- Users can browse products.
-- Users can search for products by tags, supporting the intersection of multiple tags.
-- Users can search for products by merchant and only view products from the corresponding merchant.
-- Users can purchase products
-- Users can add products to the shopping cart, each order can contain products from different merchants
-- Users can cancel orders before they are shipped
-- Users can cancel part of an order or the entire order
-- Merchants can cancel orders before they are shipped
-- Merchants can cancel part of an order or the entire order
-- Merchants can ship specified orders and enter a tracking number
-- Merchants can manage (add/view/delete) all their products
-- Users can view their personal information on the front end
-- Users can recharge through recharge channels
-- Super administrators can add users
-- Super administrators can manage (view/delete) users
-- Super administrators can add merchants
-- Super administrators can manage (view/delete) merchants
-- Users can rate products they have purchased
-
-## Create Table SQL
-See [CREATE_DB_TABLES.txt](https://github.com/GoodManWEN/GOUP25-7640/blob/main/misc/CREATE_DB_TABLES.txt) for further reference
-
+![](https://github.com/bhy94/7780/blob/main/misc/ERD-v2.png?raw=true)
 
 ## Project Design
 
-- Designed with the front-end and back-end separation application model using MVVM, it includes a user-end for user use, a vendor-end for merchants (and administrators), and a server backend.
-- Backend technology stack: **Python + FastAPI**
-- Frontend technology stack: **Vue3 + Vite + Pinia**, etc.
+- Designed with the front-end and back-end separation application model using MVVM, including two independent projects, namely the e-shop application and its associated management panel.
+- The technology stack used for the online store includes **Vue3 + Vite + Pinia** + **node + Express.js**.
+- The administration panel is built by python.
+
 
 #### Data Folder structure
 ```
-├─backend              # Backend Project Folder
+├─backend_node            # E-shop Folder
 │  ├─assets
-│  |   ├─css
-│  |   ├─imgs
-│  |   ├─js
-│  |   └─png
+│  |   └─...
+│  ├─router.js
+│  ├─views.js
+│  ├─database.js
+│  └─app.js
+├─backend_py              # Admin Panel Folder
+│  ├─assets
+│  |   └─...
 |  └─main.py
-├─frontend_admin       # Frontend Project Folder 1
+├─frontend_admin          # Frontend Project Folder 1
 │  └─src
 │      └─...
-├─frontend_mall        # Frontend Project Folder 2
+├─frontend_mall           # Frontend Project Folder 2
 │  └─src
 │      └─...
 ├─docs
@@ -105,20 +73,20 @@ See [CREATE_DB_TABLES.txt](https://github.com/GoodManWEN/GOUP25-7640/blob/main/m
 +----------------+     +----------------+
 |                |     |                |
 |  Frontend      |     |  Frontend      |
-|  Admin         |     |  Mall          |
+|  Mall          |     |  Admin         |
+|                |     |                |
++-------+--------+     +-------+--------+
+        |                      |
+        |                      |
++----------------+     +----------------+
+|                |     |                |
+|  Node+Express  |     |  Admin         |
+|  Backend       |     |  Backend       |
 |                |     |                |
 +-------+--------+     +-------+--------+
         |                      |
         |                      |
         +----------+-----------+
-                   |
-                   v
-             +-----+-----+
-             |           |
-             |  Backend  |
-             |           |
-             +-----+-----+
-                   |
                    |
                    v
              +-----+-----+
@@ -130,7 +98,7 @@ See [CREATE_DB_TABLES.txt](https://github.com/GoodManWEN/GOUP25-7640/blob/main/m
 
 ## Full Design Documentation
 
-See [Design.md](https://github.com/GoodManWEN/GOUP25-7640/blob/main/docs/design.md) for further reference
+See [Design.md](https://github.com/bhy94/7780/blob/main/docs/design.md) for further reference
 
 
 ## Deployment Guidelines
@@ -162,27 +130,73 @@ docker -v
 ```
 4. Clone this repo to local:
 ```shell
-git clone https://github.com/GoodManWEN/GOUP25-7640.git
-cd GOUP25-7640
+git clone https://github.com/bhy94/7780.git
+cd 7780
 ```
-5. Build Docker Image:
+5. Build Docker Image 1:
 ```shell
-docker build -t app .
+docker build -t mapp .
 ```
-6. Start servce with docker compose
+6. Build Docker Image 2:
 ```shell
-docker compose up
+cd backend_node
+docker build -t tapp .
+cd ..
 ```
-7. If everything goes well, you will be able to access the service at `http://127.0.0.1:8080`
+7. Start servce with docker compose
+```shell
+docker compose up -d
+```
+8. Combining e-shop and admin panel with nginx reverse proxy. An example config file is as follow:
+```conf
+# /etc/nginx/sites-available/example.com
+server {
+    listen 443 ssl;
+    server_name example.com;
+
+    # SSL configuration
+    ssl_certificate /path/to/your/certificate.crt;    # 
+    ssl_certificate_key /path/to/your/private.key;    # 
+    ssl_protocols TLSv1.2 TLSv1.3;                    # use TLS protocal
+    ssl_ciphers 'ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384';
+    ssl_prefer_server_ciphers on;
+
+    # Static files
+    root /var/www/html;
+    index index.html index.htm;
+
+    # Log file position
+    access_log /var/log/nginx/example.com.access.log;
+    error_log /var/log/nginx/example.com.error.log;
+
+    # Handel Admin_panel stream
+    location /api/ {
+        proxy_pass http://127.0.0.1:8083;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # Handel E-shop stream
+    location / {
+        proxy_pass http://127.0.0.1:8085;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+# Redirect HTTP to HTTPS
+server {
+    listen 80;
+    server_name example.com;
+    return 301 https://$server_name$request_uri;
+}
+```
+9. If everything goes well, you will be able to access the service at `example.com` or localhost.
 
 ## API Documentation
 
-[API Documentation](https://github.com/GoodManWEN/GOUP25-7640/blob/main/docs/api_design.md)
-
-.
-
-.
-
-.
-
-
+[API Documentation](https://github.com/bhy94/7780/blob/main/docs/api_design.md)
