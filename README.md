@@ -3,7 +3,7 @@
 An implementation of a basic E-shop with its management panel, where you can explore products and pay for them with paypal(sandbox) if you like.
 
 #### Github Source:
-[https://github.com/GoodManWEN/GOUP25-7640](https://github.com/bhy94/7780)
+[https://github.com/bhy94/7780](https://github.com/bhy94/7780)
 
 ## Group Member
 - 23462264 Yiming Hong (Scrum Master)
@@ -32,8 +32,7 @@ An implementation of a basic E-shop with its management panel, where you can exp
 - Add products through the admin panel
 - View all PayPal recharge records in the admin panel
 
-## ER-Diagram
-![](https://github.com/bhy94/7780/blob/main/misc/ERD-v2.png?raw=true)
+
 
 ## Project Design
 
@@ -95,6 +94,9 @@ An implementation of a basic E-shop with its management panel, where you can exp
              |           |
              +-----------+
 ```
+
+## ER-Diagram
+![](https://github.com/bhy94/7780/blob/main/misc/ERD-v2.png?raw=true)
 
 ## Full Design Documentation
 
