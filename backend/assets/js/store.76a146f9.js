@@ -1,1 +1,0 @@
-import{n}from"./index.9e85dc32.js";const t=n("main",{state:()=>({count:0,vendor_display_name:"",vendor_id:0,role:"vendor"}),actions:{increment(){this.count++},set_display_name(e){this.vendor_display_name=e},set_vendor_id(e){this.vendor_id=e},set_role(e){this.role=e}}});export{t as u};
