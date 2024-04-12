@@ -97,7 +97,7 @@ An implementation of a basic E-shop with its management panel, where you can exp
 ```
 
 ## ER-Diagram
-![](https://github.com/bhy94/7780/blob/main/misc/ERD-v2.png?raw=true)
+![](https://github.com/bhy94/7780/blob/main/misc/ERD-20240319.png?raw=true)
 
 ## Full Design Documentation
 
