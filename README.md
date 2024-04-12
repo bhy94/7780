@@ -2,8 +2,12 @@
 
 An implementation of a basic E-shop with its management panel, where you can explore products and pay for them with paypal(sandbox) if you like.
 
-#### Github Source:
-[https://github.com/bhy94/7780](https://github.com/bhy94/7780)
+## Online DEMO
+[https://7780.wendemoapi.site/](https://7780.wendemoapi.site/)
+- **E-shop**: `7780.wendemoapi.site/`
+- **Admin Panel**: `7780.wendemoapi.site/panel/login/`
+- Default User/pass: `alice`/`alice123`
+- Default Vendor/pass: `test`/`test123`
 
 ## Group Member
 - 23462264 Yiming Hong (Scrum Master)
@@ -11,13 +15,6 @@ An implementation of a basic E-shop with its management panel, where you can exp
 - 23462426 Fuquan Wen (Developer & Tester)
 - 23458836 Hongyi Bian (Developer)
 
-
-## Online DEMO
-[https://7780.wendemoapi.site/](https://7780.wendemoapi.site/)
-- **E-shop**: `7780.wendemoapi.site/`
-- **Admin Panel**: `7780.wendemoapi.site/panel/login/`
-- Default User/pass: `alice`/`alice123`
-- Default Vendor/pass: `test`/`test123`
 
 ## Main Functional Implemented
 
