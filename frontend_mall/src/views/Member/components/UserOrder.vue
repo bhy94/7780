@@ -78,25 +78,58 @@ const cancel_order = (order_id) => {
   })
 }
 
-const pay_order = (order_id) => {
-  axios.post('/api/payments/pay', {
-    user_id: store.user_id,
-    order_id: order_id
-  })
-  .then((res) => {
-    console.log(res)
-    if (res.data.code == 200 && res.data.data.success == 1) {
-      ElMessage({ type: 'success', message: 'Pay Bill Succeed!' })
-      setTimeout(() => {
-        location.reload(true)
-      }, 200)
-    } else {
-      throw new Error('Pay Bill failed')
-    }
-  })
-  .catch(err => {
-    ElMessage({ type: 'error', message: 'Pay Bill failed' })
-  })
+let placed_once = false
+const pay_order = (order_id, total_price) => {
+  if (placed_once) {
+    ElMessage({ type: 'warning', message: 'Please pay one order at a time!' })
+    return
+  }
+  placed_once = true 
+  paypal.Buttons({
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: total_price // Set up the transaction amount here
+                    }
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            // This function captures the funds from the transaction.
+            return actions.order.capture().then(function(details) {
+              axios.post('/api/payments/pay', {
+                user_id: store.user_id,
+                order_id: order_id
+              })
+              .then((res) => {
+                console.log(res)
+                ElMessage({ type: 'success', message: 'Pay Bill Succeed!' })
+                setTimeout(() => {
+                  location.reload(true)
+                }, 200)
+              })
+              .catch(err => {
+                ElMessage({ type: 'error', message: 'Pay Bill failed' })
+              })
+            });
+        },
+        oncancel: function(data, actions) {
+            return actions.order.cancel().then(function(details) {
+              location.reload()
+            });
+        },
+        onError: function(err) {
+            // 刷新页面
+            location.reload()
+        },
+        onabort: function(data, actions) {
+            return actions.order.abort().then(function(details) {
+              location.reload()
+            });
+        } 
+    }).render('#paypal-button-container');
+  
 }
 
 
@@ -131,7 +164,7 @@ const recieve_order = (order_id) => {
             <div m="4">
               <el-button @click="recieve_order(props.row.order_id)" v-if="props.row.status == 'shipping'"> Receive </el-button>
               <el-button @click="cancel_order(props.row.order_id)" v-if="props.row.status == 'placed' || props.row.status == 'paid'"> Cancel Full Order </el-button>
-              <el-button @click="pay_order(props.row.order_id)" v-if="props.row.status == 'placed'"> Pay Bill </el-button>
+              <el-button @click="pay_order(props.row.order_id, props.row.items[0].total_price)" v-if="props.row.status == 'placed'"> Pay Bill </el-button>
               <div style="margin-bottom:10px"></div>
               <div v-for="(item, index) in props.row.items" style="width:100%;height:100%;border: 1px solid #555;padding:5px;margin-top:5px">
                 <p m="t-0 b-2">OrderID: {{ item.order_id }}</p>
@@ -140,6 +173,9 @@ const recieve_order = (order_id) => {
                 <p m="t-0 b-2">TotalPrice: {{ item.total_price }}</p>
                 <p m="t-0 b-2">Express Number: {{ item.express_number}}</p>
                 <el-button @click="cancel_order(item.order_id)" :disabled="item.status != 'placed' && item.status != 'paid'" v-if="props.row.items.length != 1"> Cancel </el-button>
+              </div>
+              <div id="paypal-button-container">
+
               </div>
             </div>
           </template>

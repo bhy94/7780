@@ -317,36 +317,40 @@ async def request_payment_handler(request: Request, payment: PaymentItem, auth: 
     pool = request.app.state.pool
     async with pool.acquire() as conn:
         async with conn.cursor() as cur:
-            await cur.execute("SELECT parent_order_id, total_price FROM orders WHERE order_id = %s and status='placed';", (order_id,))
-            total_price = await cur.fetchone()
-            if total_price is None:
-                raise HTTPException(status_code=400, detail="No such order")
-            parent_order_id, total_price = total_price
-            if parent_order_id != order_id:
-                raise HTTPException(status_code=400, detail="Not a parent order")
-            await cur.execute("SELECT balance FROM users WHERE user_id = %s;", (user_id,))
-            balance = await cur.fetchone()
-            if balance is None:
-                raise HTTPException(status_code=400, detail="No such user")
-            balance = balance[0]
-            if balance < total_price:
-                res["data"]["success"] = 0
-                res["data"]["message"] = "Insufficient balance"
-                return res
-            try:
-                await conn.begin()
-                await cur.execute("UPDATE users SET balance = balance - %s WHERE user_id = %s;", (total_price, user_id))
-                assert cur.rowcount > 0
-                await cur.execute("UPDATE orders SET status = 'paid' WHERE order_id = %s and status='placed';", (order_id,))
-                assert cur.rowcount > 0
-                await cur.execute("UPDATE orders SET status = 'paid' WHERE parent_order_id = %s and status='placed';", (order_id,))
-                # 商户收款未做
-            except:
-                await conn.rollback()
-                res["data"]["success"] = 0
-            else:
-                await conn.commit()
-                return res
+            await cur.execute("UPDATE orders SET status = 'paid' WHERE order_id = %s and status='placed';", (order_id,))
+            await cur.execute("UPDATE orders SET status = 'paid' WHERE parent_order_id = %s and status='placed';", (order_id,))
+            await conn.commit()
+            return res
+            # await cur.execute("SELECT parent_order_id, total_price FROM orders WHERE order_id = %s and status='placed';", (order_id,))
+            # total_price = await cur.fetchone()
+            # if total_price is None:
+            #     raise HTTPException(status_code=400, detail="No such order")
+            # parent_order_id, total_price = total_price
+            # if parent_order_id != order_id:
+            #     raise HTTPException(status_code=400, detail="Not a parent order")
+            # await cur.execute("SELECT balance FROM users WHERE user_id = %s;", (user_id,))
+            # balance = await cur.fetchone()
+            # if balance is None:
+            #     raise HTTPException(status_code=400, detail="No such user")
+            # balance = balance[0]
+            # if balance < total_price:
+            #     res["data"]["success"] = 0
+            #     res["data"]["message"] = "Insufficient balance"
+            #     return res
+            # try:
+            #     await conn.begin()
+            #     await cur.execute("UPDATE users SET balance = balance - %s WHERE user_id = %s;", (total_price, user_id))
+            #     assert cur.rowcount > 0
+            #     await cur.execute("UPDATE orders SET status = 'paid' WHERE order_id = %s and status='placed';", (order_id,))
+            #     assert cur.rowcount > 0
+            #     await cur.execute("UPDATE orders SET status = 'paid' WHERE parent_order_id = %s and status='placed';", (order_id,))
+            #     # 商户收款未做
+            # except:
+            #     await conn.rollback()
+            #     res["data"]["success"] = 0
+            # else:
+            #     await conn.commit()
+            #     return res
 
 
 async def user_recieve_order_handler(request: Request, item: PaymentItem, auth: Annotated[dict, Depends(authentication)]):

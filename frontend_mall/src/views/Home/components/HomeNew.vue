@@ -23,7 +23,8 @@ onMounted(() => getNewList())
 </script>
 
 <template>
-  <HomePanel title="Recent Goods" sub-title="Newly Launched Products, Reliable Quality">    <ul class="goods-list">
+  <HomePanel title="Recent Goods" sub-title="Newly Launched Products, Reliable Quality">    
+    <ul class="goods-list">
       <li v-for="item in newList" :key="item[0]">
         <RouterLink :to="`/detail/${item[0]}`">
           <img :src="item[2]" alt="" />

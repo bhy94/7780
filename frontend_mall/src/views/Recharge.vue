@@ -10,6 +10,7 @@ import { useStore } from '@/stores/pStore'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import { onMounted } from 'vue'
+import { set } from '@vueuse/core'
 
 const store = useStore()
 
@@ -40,11 +41,7 @@ const balance_add = ref('')
 
 const router = useRouter()
 
-
-
 const deposit = () => {
-  // 调用实例方法
-  console.log(balance_add.value)
   if (balance_add.value == '') {
     ElMessage({ type: 'warning', message: 'Please enter the amount to top-up!' })
     return
@@ -52,24 +49,73 @@ const deposit = () => {
     ElMessage({ type: 'error', message: 'Please enter a valid number!' })
     return
   } else {
-    console.log(store.user_id, 'store.user_id')
-    axios.post('/api/users/deposit', {
-      user_id: store.user_id,
-      balance_add: balance_add.value,
-    })
-      .then((res) => {
-        console.log(res, 'res')
-        if (res.data.code == 200 && res.data.data.success == 1) {
-          ElMessage({ type: 'success', message: 'Top-up Success' })
-        } else {
-          throw new Error('Top-up Failed')
-        }
-      }).catch((err) => {
-        console.log(err, 'err')
-        ElMessage({ type: 'error', message: 'Top-up Failed' })
-      })
+    paypal.Buttons({
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: balance_add.value // Set up the transaction amount here
+                    }
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            // This function captures the funds from the transaction.
+            return actions.order.capture().then(function(details) {
+                console.log(details, 'details')
+                axios.post('/api/users/deposit', {
+                  user_id: store.user_id,
+                  balance_add: balance_add.value,
+                  pporder_id: details.id
+                })
+                .then((res) => {
+                  console.log(res, 'res')
+                  if (res.data.code == 200 && res.data.data.success == 1) {
+                    ElMessage({ type: 'success', message: 'Top-up Success' })
+                  } else {
+                    throw new Error('Top-up Failed')
+                  }
+                }).catch((err) => {
+                  console.log(err, 'err')
+                  ElMessage({ type: 'error', message: 'Top-up Failed' })
+                })
+                setTimeout(() => {
+                  location.reload()
+                }, 2000)
+            });
+        },
+        oncancel: function(data, actions) {
+            return actions.order.cancel().then(function(details) {
+              location.reload()
+            });
+        },
+        onError: function(err) {
+            // 刷新页面
+            location.reload()
+        },
+        onabort: function(data, actions) {
+            return actions.order.abort().then(function(details) {
+              location.reload()
+            });
+        } 
+    }).render('#paypal-button-container');
   }
 }
+
+// const deposit1 = () => {
+//   // 调用实例方法
+//   console.log(balance_add.value)
+//   if (balance_add.value == '') {
+//     ElMessage({ type: 'warning', message: 'Please enter the amount to top-up!' })
+//     return
+//   } else if (isNaN(balance_add.value)) {
+//     ElMessage({ type: 'error', message: 'Please enter a valid number!' })
+//     return
+//   } else {
+//     console.log(store.user_id, 'store.user_id')
+    
+//   }
+// }
 
 // 1. 用户名和密码 只需要通过简单的配置（看文档的方式 - 复杂功能通过多个不同组件拆解）
 // 2. 同意协议  自定义规则  validator:(rule,value,callback)=>{}
@@ -82,7 +128,7 @@ const deposit = () => {
     <header class="login-header">
       <div class="container m-top-20">
         <h1 class="logo">
-          <RouterLink to="/">GROUP25-7640</RouterLink>
+          <RouterLink to="/">GROUP29-7780</RouterLink>
         </h1>
         <RouterLink class="entry" to="/">
           Homepage
@@ -103,9 +149,11 @@ const deposit = () => {
                 <el-form-item prop="balance_add" label="Top-up">
                   <el-input v-model="balance_add" />
                 </el-form-item>
-                <el-button size="large" class="subBtn" @click="deposit">Click to Top-up!</el-button>
+                <el-button size="large" class="subBtn" @click="deposit">Create Top-up Link!</el-button>
               </el-form>
             </div>
+          </div>
+          <div id="paypal-button-container">
           </div>
         </div>
       </section>
@@ -114,7 +162,7 @@ const deposit = () => {
 
     <footer class="login-footer">
       <div class="container">
-        <p>CopyRight &copy; GROUP25-7640</p>
+        <p>CopyRight &copy; GROUP29-7780</p>
       </div>
     </footer>
   </div>

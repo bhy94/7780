@@ -136,9 +136,9 @@ const gotosearch2 = (vendor_id) => {
               <!-- 商品信息区 -->
               <p class="g-name"> {{ goods.product_name }} </p>
 
-              <el-badge v-for="(tag, index) in goods.tags" :key="index" class="item" type="primary" style="margin-top:20px;margin-right:10px">
+              <!-- <el-badge v-for="(tag, index) in goods.tags" :key="index" class="item" type="primary" style="margin-top:20px;margin-right:10px">
                 <el-button @click="gotosearch(tag)">{{tag}}</el-button>
-              </el-badge>
+              </el-badge> -->
 
 
               <p class="g-price" style="font-size:20px">
@@ -156,12 +156,10 @@ const gotosearch2 = (vendor_id) => {
                   Add to Cart
                 </el-button>
               </div>
-              <h3 style="margin-top:30px">Shop Name:</h3>
+              <h3 style="margin-top:30px">Company Name:</h3>
               <p class="g-desc"><a style="color:blue" @click="gotosearch2(goods.vendor_id)">{{ goods.vendor_display_name }} </a></p>
               <h3 style="margin-top:30px">Original Address:</h3>
               <p class="g-desc">{{ goods.origin_address }} </p>
-              <h3 style="margin-top:30px">Score:</h3>
-              <p class="g-desc">{{ goods.product_score }} </p>
               <h3 style="margin-top:30px">Description:</h3>
               <p class="g-desc">{{ goods.product_info }} </p>
             </div>

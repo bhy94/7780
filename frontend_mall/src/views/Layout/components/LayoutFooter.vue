@@ -6,9 +6,39 @@
       <div class="container">
 
         <!-- Copyright Information -->
+        
+        <div style="color:#999;width:100%;display:flex;justify-content:center;padding-top:30px">
+          <table class="mytable">
+            <tr>
+              <th>Responsibility</th>
+              <th>Name</th>
+              <th>StudentID</th>
+            </tr>
+            <tr>
+              <td>Scrum Master</td>
+              <td>Yiming Hong</td>
+              <td>23462264</td>
+            </tr>
+            <tr>
+              <td>Scrum Master</td>
+              <td>HAOLIN LIU</td>
+              <td>23439327</td>
+            </tr>
+            <tr>
+              <td>Developer</td>
+              <td>Fuquan Wen</td>
+              <td>23462426</td>
+            </tr>
+            <tr>
+              <td>Developer</td>
+              <td>HONGYI BIAN</td>
+              <td>23458836</td>
+            </tr>
+          </table>
+        </div>
         <div class="copyright">
 
-          <p>CopyRight © GROUP25-7640</p>
+          <p>CopyRight © GROUP29-7780</p>
         </div>
       </div>
     </div>
@@ -16,6 +46,19 @@
 </template>
 
 <style scoped lang='scss'>
+.mytable {
+  th {
+    padding: 10px;
+    text-align: center;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+  };
+  td {
+    padding: 10px;
+    text-align: center;
+  };
+}
+
 .app_footer {
   overflow: hidden;
   background-color: #f5f5f5;
@@ -27,6 +70,8 @@
     .container {
       padding: 60px 0 40px 25px;
       display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     dl {

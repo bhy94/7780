@@ -50,7 +50,7 @@ const start_search = () => {
   <header class='app-header'>
     <div class="container">
       <h1 class="logo">
-        <RouterLink to="/">GROUP25-7640</RouterLink>
+        <RouterLink to="/">GROUP29-7780</RouterLink>
       </h1>
 
       <LayoutHeaderUl />

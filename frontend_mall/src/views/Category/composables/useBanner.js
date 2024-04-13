@@ -6,19 +6,19 @@ export function useBanner () {
   const bannerList = ref([
     {
       id: 1,
-      imgUrl: "https://img.ltwebstatic.com/images3_ccc/2024/03/25/4d/1711334730b0df19346e3d654c3e10dcac54c307f7_thumbnail_2000x.jpg"
+      imgUrl: "https://imgur.com/9TpzGYX.png"
     },
     {
       id: 2,
-      imgUrl: "https://img.ltwebstatic.com/images3_ccc/2024/03/25/4d/1711334730b0df19346e3d654c3e10dcac54c307f7_thumbnail_2000x.jpg"
+      imgUrl: "https://imgur.com/9TpzGYX.png"
     },
     {
       id: 3,
-      imgUrl: "https://img.ltwebstatic.com/images3_ccc/2024/03/25/4d/1711334730b0df19346e3d654c3e10dcac54c307f7_thumbnail_2000x.jpg"
+      imgUrl: "https://imgur.com/9TpzGYX.png"
     },
     {
       id: 4,
-      imgUrl: "https://img.ltwebstatic.com/images3_ccc/2024/03/25/4d/1711334730b0df19346e3d654c3e10dcac54c307f7_thumbnail_2000x.jpg"
+      imgUrl: "https://imgur.com/9TpzGYX.png"
     }
   ])
 

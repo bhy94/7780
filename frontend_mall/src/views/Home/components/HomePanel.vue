@@ -1,6 +1,9 @@
 <script setup>
 import Cookies from 'js-cookie'
 import axios from 'axios'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 // 定义props
 defineProps({
@@ -35,17 +38,22 @@ const showallgoods = () => {
   })
 }
 
+const view_all_products = () => {
+  router.push({ path: '/products' })
+}
+
 </script>
 
 
 <template>
   <div class="home-panel">
     <div class="container">
-      <div class="head">
+      <div class="head" style="display:flex">
         <!-- 主标题和副标题 -->
         <h3 @click="showallgoods()">
           {{ title }}<small>{{ subTitle }}</small>
         </h3>
+        <div style="color:blue;text-decoration: underline;" @click="view_all_products()">View All Products</div>
       </div>
       <!-- 主体内容区域 -->
       <slot />

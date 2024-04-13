@@ -20,6 +20,8 @@ import Recharge from "@/views/Recharge.vue";
 import SearchResultPage from "@/views/SearchResultPage.vue";
 import PersonalInfo from "@/views/PersonalInformation.vue";
 import Cookies from 'js-cookie'
+import AllProducts from "@/views/AllProducts.vue";
+import AboutUs from "@/views/AboutUs.vue";
 
 const role = Cookies.get('role')
 if (role == 'admin' || role == 'vendor') {
@@ -37,6 +39,17 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   // path和component对应关系的位置
   routes: [
+    
+    {
+      path: '/index.html',
+      component: Layout,
+      children: [
+        {
+          path: '',
+          component: Home
+        },
+      ]
+    },
     {
       path: '/',
       component: Layout,
@@ -102,8 +115,16 @@ const router = createRouter({
       component: SearchResultPage
     },
     {
+      path: '/products',
+      component: AllProducts
+    },
+    {
       path: '/user-info',
       component: PersonalInfo
+    },
+    {
+      path: '/about-us',
+      component: AboutUs
     }
   ],
   // 路由滚动行为定制

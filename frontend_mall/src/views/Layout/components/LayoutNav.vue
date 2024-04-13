@@ -63,7 +63,8 @@ const logout = () => {
         </template> -->
         <!-- <template v-else> -->
 
-          <li><a href="javascript:;" @click="$router.push('/recharge')" v-if="store.user_id != 0">Recharge</a></li>
+          <li><a href="javascript:;" @click="$router.push('/about-us')" >About Us</a></li>
+          <li><a href="javascript:;" @click="$router.push('/recharge')" v-if="store.user_id != 0">Top-up</a></li>
           <li><a href="javascript:;" @click="$router.push('/member/order')" v-if="store.user_id != 0">My Orders</a></li>
           <li><a href="javascript:;" @click="$router.push('/login')" v-if="store.user_id == 0">Login</a></li>
           <li><a href="javascript:;" @click="$router.push('/register')" v-if="store.user_id == 0">Register</a></li>
