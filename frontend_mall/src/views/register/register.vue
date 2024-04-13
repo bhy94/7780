@@ -117,7 +117,7 @@ const doRegister = () => {
     <header class="login-header">
       <div class="container m-top-20">
         <h1 class="logo">
-          <RouterLink to="/">GROUP25-7640</RouterLink>
+          <RouterLink to="/">GROUP29-7780</RouterLink>
         </h1>
         <RouterLink class="entry" to="/">
           Homepage
@@ -170,7 +170,7 @@ const doRegister = () => {
           <a href="javascript:;">Search Recommendations</a>
           <a href="javascript:;">Friendly Links</a>
         </p>
-        <p>CopyRight &copy; GROUP25-7640</p>
+        <p>CopyRight &copy; GROUP29-7780</p>
       </div>
     </footer>
   </div>

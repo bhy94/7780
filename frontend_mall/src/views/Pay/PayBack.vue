@@ -33,7 +33,7 @@ onMounted(() => getOrderInfo())
         </div>
         <p class="alert">
           <span class="iconfont icon-tip"></span>
-          温馨提示：GROUP25-7640不会以订单异常、系统升级为由要求您点击任何网址链接进行退款操作，保护资产、谨慎操作。
+          温馨提示：GROUP29-7780不会以订单异常、系统升级为由要求您点击任何网址链接进行退款操作，保护资产、谨慎操作。
         </p>
       </div>
     </div>
